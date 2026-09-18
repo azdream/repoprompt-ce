@@ -8,16 +8,51 @@ func performAgentToolCardExpansionStateUpdateWithoutAnimation(_ update: () -> Vo
     }
 }
 
+private struct AgentToolCardAutoExpandEnabledKey: EnvironmentKey {
+    static let defaultValue: Bool = true
+}
+
+private struct AgentLiveBashExecutionByItemIDKey: EnvironmentKey {
+    static let defaultValue: [UUID: AgentModeViewModel.BashLiveExecutionState] = [:]
+}
+
+private struct AgentRecentAssistantItemIDsKey: EnvironmentKey {
+    static let defaultValue: Set<UUID> = []
+}
+
+private struct AgentMessageRuntimeFooterByItemIDKey: EnvironmentKey {
+    static let defaultValue: [UUID: AgentMessageRuntimeFooter] = [:]
+}
+
+private struct AgentApprovalVisibleKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
-    @Entry var agentToolCardAutoExpandEnabled: Bool = true
+    var agentToolCardAutoExpandEnabled: Bool {
+        get { self[AgentToolCardAutoExpandEnabledKey.self] }
+        set { self[AgentToolCardAutoExpandEnabledKey.self] = newValue }
+    }
 
-    @Entry var agentLiveBashExecutionByItemID: [UUID: AgentModeViewModel.BashLiveExecutionState] = [:]
+    var agentLiveBashExecutionByItemID: [UUID: AgentModeViewModel.BashLiveExecutionState] {
+        get { self[AgentLiveBashExecutionByItemIDKey.self] }
+        set { self[AgentLiveBashExecutionByItemIDKey.self] = newValue }
+    }
 
-    @Entry var agentRecentAssistantItemIDs: Set<UUID> = []
+    var agentRecentAssistantItemIDs: Set<UUID> {
+        get { self[AgentRecentAssistantItemIDsKey.self] }
+        set { self[AgentRecentAssistantItemIDsKey.self] = newValue }
+    }
 
-    @Entry var agentMessageRuntimeFooterByItemID: [UUID: AgentMessageRuntimeFooter] = [:]
+    var agentMessageRuntimeFooterByItemID: [UUID: AgentMessageRuntimeFooter] {
+        get { self[AgentMessageRuntimeFooterByItemIDKey.self] }
+        set { self[AgentMessageRuntimeFooterByItemIDKey.self] = newValue }
+    }
 
-    @Entry var agentApprovalVisible: Bool = false
+    var agentApprovalVisible: Bool {
+        get { self[AgentApprovalVisibleKey.self] }
+        set { self[AgentApprovalVisibleKey.self] = newValue }
+    }
 }
 
 enum AgentToolCardRenderedBashPhase: String, Equatable {

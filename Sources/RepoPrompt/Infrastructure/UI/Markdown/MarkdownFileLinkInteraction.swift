@@ -94,8 +94,15 @@ final class MarkdownFileLinkOpener {
     }
 }
 
+private struct MarkdownFileLinkOpenerKey: EnvironmentKey {
+    static let defaultValue: MarkdownFileLinkOpener? = nil
+}
+
 extension EnvironmentValues {
-    @Entry var markdownFileLinkOpener: MarkdownFileLinkOpener?
+    var markdownFileLinkOpener: MarkdownFileLinkOpener? {
+        get { self[MarkdownFileLinkOpenerKey.self] }
+        set { self[MarkdownFileLinkOpenerKey.self] = newValue }
+    }
 }
 
 extension NSAttributedString.Key {

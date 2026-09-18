@@ -1,8 +1,15 @@
 import AppKit
 import SwiftUI
 
+private struct AgentWindowIsFocusedKey: EnvironmentKey {
+    static let defaultValue: Bool = true
+}
+
 extension EnvironmentValues {
-    @Entry var agentWindowIsFocused: Bool = true
+    var agentWindowIsFocused: Bool {
+        get { self[AgentWindowIsFocusedKey.self] }
+        set { self[AgentWindowIsFocusedKey.self] = newValue }
+    }
 }
 
 // MARK: - Message Footer Strip

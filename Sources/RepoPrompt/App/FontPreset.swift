@@ -36,8 +36,15 @@ enum FontScalePreset: Double, CaseIterable, Identifiable {
     }
 }
 
+private struct RepoPromptFontScalePresetKey: EnvironmentKey {
+    static let defaultValue: FontScalePreset = .current
+}
+
 extension EnvironmentValues {
-    @Entry var repoPromptFontScalePreset: FontScalePreset = .current
+    var repoPromptFontScalePreset: FontScalePreset {
+        get { self[RepoPromptFontScalePresetKey.self] }
+        set { self[RepoPromptFontScalePresetKey.self] = newValue }
+    }
 }
 
 extension FontScalePreset {

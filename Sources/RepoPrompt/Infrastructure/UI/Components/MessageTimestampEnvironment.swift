@@ -1,9 +1,23 @@
 import Foundation
 import SwiftUI
 
+private struct ShowDatesInMessageTimestampsKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+private struct MessageTimestampNowKey: EnvironmentKey {
+    static let defaultValue: Date = .now
+}
+
 extension EnvironmentValues {
-    @Entry var showDatesInMessageTimestamps: Bool = false
-    @Entry var messageTimestampNow: Date = .now
+    var showDatesInMessageTimestamps: Bool {
+        get { self[ShowDatesInMessageTimestampsKey.self] }
+        set { self[ShowDatesInMessageTimestampsKey.self] = newValue }
+    }
+    var messageTimestampNow: Date {
+        get { self[MessageTimestampNowKey.self] }
+        set { self[MessageTimestampNowKey.self] = newValue }
+    }
 }
 
 @MainActor
